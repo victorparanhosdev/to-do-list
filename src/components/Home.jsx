@@ -21,7 +21,7 @@ export function Home() {
             isActive: false
         }
 
-        setArrayTask(prevState => [...prevState, blockTask])
+        setArrayTask(prevState => [blockTask, ...prevState])
         setTask('')
 
     }
