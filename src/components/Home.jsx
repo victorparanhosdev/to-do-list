@@ -2,8 +2,8 @@ import style from './home.module.css'
 import LogoRocket from '../assets/rocket.svg'
 import { Task } from './Task'
 import { PlusCircle, Trash } from "@phosphor-icons/react";
-import { useState} from 'react';
-import {BoxEmpty} from './BoxEmpty'
+import { useEffect, useState } from 'react';
+import { BoxEmpty } from './BoxEmpty'
 import { nanoid } from 'nanoid';
 export function Home() {
 
@@ -12,35 +12,41 @@ export function Home() {
 
     function handleTask() {
         event.preventDefault()
-        const randomID = nanoid(); 
-        setArrayTask(prevState => [...prevState, {
-            id: randomID, content: newTask, isActive: false
-        }])
+
+        const randomID = nanoid()
+
+        const blockTask = {
+            id: randomID,
+            content: newTask,
+            isActive: false
+        }
+
+        setArrayTask(prevState => [...prevState, blockTask])
         setTask('')
-        //handleLocalStoreTask()
-    }
-
-    function handleLocalStoreTask(){
-        const localStoreTask = JSON.parse(localStorage.getItem("@listTask:"))
-        //localStorage.setItem("@listTask:", JSON.stringify(arrayTask))
 
     }
+
+
 
     function handleCheckBox(ItemID) {
+
         setArrayTask((prevState) => {
-          return prevState.map((itemTask) => {
-            if (itemTask.id === ItemID) {
-                let variavel = itemTask.isActive
-              return {
-                ...itemTask,
-                isActive: !variavel,
-              };
-            }
-            return itemTask; // Retorna o item inalterado para os outros casos
-          });
+            return prevState.map((itemTask) => {
+                if (itemTask.id === ItemID) {
+                    let variavel = itemTask.isActive
+                    return {
+                        ...itemTask,
+                        isActive: !variavel,
+                    };
+                }
+                return itemTask; // Retorna o item inalterado para os outros casos
+            });
         });
-     
-      }
+
+    }
+    function handleNewTaskValidad() {
+        event.target.setCustomValidity("Preencha este campo")
+    }
 
     function deleteItem(itemID) {
         event.preventDefault()
@@ -53,7 +59,23 @@ export function Home() {
         }
 
     }
+
+
     const tasksWithConglutations = arrayTask.filter(task => task.isActive === true);
+
+    useEffect(() => {
+        const localStoreTask = JSON.parse(localStorage.getItem("@listTask:"))
+        if (localStoreTask && localStoreTask.length > 0) {
+            setArrayTask(localStoreTask)
+
+        }
+
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem("@listTask:", JSON.stringify(arrayTask));
+    }, [arrayTask]);
+
 
     return (
         <div className={style.home}>
@@ -66,7 +88,10 @@ export function Home() {
 
             <main className={style.content}>
                 <form onSubmit={handleTask} className={style.inputnewtask}>
-                    <input required onChange={(e) => setTask(e.target.value)} value={newTask} placeholder="Adicione uma nova tarefa" type="text" />
+                    <input onInvalid={handleNewTaskValidad} required onChange={(event) => {
+                        event.target.setCustomValidity('')
+                        setTask(event.target.value)
+                    }} value={newTask} placeholder="Adicione uma nova tarefa" type="text" />
                     <button type='submit'>Criar <PlusCircle size={16} weight="bold" /></button>
                 </form>
 

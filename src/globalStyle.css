@@ -26,16 +26,21 @@
 
 
 }
+
 body {
     background-color: var(--gray-600);
- 
-}
-
-body, input, textarea, button {
-    font-size: 1.6rem;
-    font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+}
+
+body,
+input,
+textarea,
+button {
+    font-size: 1.6rem;
+    font-family: 'Inter', sans-serif;
+
     color: var(--gray-300);
 }
 
@@ -52,12 +57,14 @@ ul {
     width: 0.7rem;
     height: 0.7rem;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: var(--gray-400);
     border-radius: 2rem;
 
-   
+
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--gray-300);
 }

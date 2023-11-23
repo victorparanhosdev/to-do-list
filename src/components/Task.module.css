@@ -17,6 +17,7 @@
     gap: 1.2rem;
     transition: background 0.2s;
 }
+
 .task:hover:not(.isActiveFalse) {
     background: var(--gray-400);
 }
@@ -31,9 +32,11 @@
     cursor: pointer;
     transition: color 0.2s;
 }
+
 .task button:hover {
     color: var(--danger);
 }
+
 .task p {
     flex: 1;
     font-size: 1.4rem;
@@ -47,17 +50,20 @@
     cursor: pointer;
     position: relative;
 }
+
 .checkboxcontainer input {
     appearance: none;
+    visibility: hidden;
 }
 
 .checkboxcontainer svg {
     color: var(--blue)
 }
-.task.isActiveFalse .checkboxcontainer svg{
+
+.task.isActiveFalse .checkboxcontainer svg {
     color: var(--purple-dark);
-    
-  
+
+
 }
 
 
@@ -66,10 +72,9 @@
 .isActiveFalse p {
     color: var(--gray-300);
     text-decoration: line-through;
-   
+
 }
+
 .isActiveFalse {
     border-color: transparent;
 }
-
-
