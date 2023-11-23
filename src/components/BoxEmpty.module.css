@@ -1,0 +1,19 @@
+.boxEmpty{
+    border-top: 1px solid var(--gray-400);
+    border-radius: 0.8rem;
+    padding: 6.4rem 2.4rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+.boxEmpty img {
+    width: 5.6rem;
+    height: 5.6rem;
+    margin: auto;
+}
+
+.boxEmpty p strong{
+    display: block;
+}
+
