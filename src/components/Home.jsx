@@ -2,9 +2,9 @@ import style from './home.module.css'
 import LogoRocket from '../assets/rocket.svg'
 import { Task } from './Task'
 import { PlusCircle, Trash } from "@phosphor-icons/react";
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import {BoxEmpty} from './BoxEmpty'
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 export function Home() {
 
     const [newTask, setTask] = useState('')
@@ -12,20 +12,28 @@ export function Home() {
 
     function handleTask() {
         event.preventDefault()
-
+        const randomID = nanoid(); 
         setArrayTask(prevState => [...prevState, {
-            id: uuidv4(), content: newTask, isActive: false
+            id: randomID, content: newTask, isActive: false
         }])
         setTask('')
+        //handleLocalStoreTask()
     }
 
-    function handleCheckBox(valueBoolean, ItemID) {
+    function handleLocalStoreTask(){
+        const localStoreTask = JSON.parse(localStorage.getItem("@listTask:"))
+        //localStorage.setItem("@listTask:", JSON.stringify(arrayTask))
+
+    }
+
+    function handleCheckBox(ItemID) {
         setArrayTask((prevState) => {
           return prevState.map((itemTask) => {
             if (itemTask.id === ItemID) {
+                let variavel = itemTask.isActive
               return {
                 ...itemTask,
-                isActive: valueBoolean,
+                isActive: !variavel,
               };
             }
             return itemTask; // Retorna o item inalterado para os outros casos
@@ -45,6 +53,7 @@ export function Home() {
         }
 
     }
+    const tasksWithConglutations = arrayTask.filter(task => task.isActive === true);
 
     return (
         <div className={style.home}>
@@ -63,10 +72,10 @@ export function Home() {
 
                 <div className={style.boxtask}>
                     <div className={style.taskOption}>
-                        <p>Tarefas Criadas<span>0</span></p>
-                        <p>Concluidas <span>0 de 10</span></p>
+                        <p>Tarefas Criadas<span>{arrayTask.length}</span></p>
+                        <p>Concluídas <span>{tasksWithConglutations.length} de {arrayTask.length}</span></p>
                     </div>
-                    {arrayTask.length === 0 ? <BoxEmpty /> : <Task onChange={handleCheckBox} onClick={deleteItem} ico={Trash} content={arrayTask} />}
+                    {arrayTask.length === 0 ? <BoxEmpty /> : <Task OnChangeCheckBox={handleCheckBox} onClick={deleteItem} ico={Trash} content={arrayTask} />}
 
 
                 </div>
