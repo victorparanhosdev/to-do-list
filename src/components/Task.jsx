@@ -10,7 +10,7 @@ export function Task({ ico: Icon, content, onClick, OnChangeCheckBox }) {
                 return (<div key={tasks.id} className={`${style.task} ${tasks.isActive ? `${style.isActiveFalse}` : ''}`}>
                     <label htmlFor={tasks.id} className={style.checkboxcontainer}>{tasks.isActive ? <CheckCircle weight="fill" size={24} /> : <Circle size={24} />}<input onChange={() => OnChangeCheckBox(tasks.id)} type="checkbox" name="mycheckbox" id={tasks.id} /></label>
                     <p >{tasks.content}</p>
-                    <button>{Icon && <Icon onClick={() => onClick(tasks.id)} size={16} weight="bold" />}</button>
+                    <button onClick={() => onClick(tasks.id)}>{Icon && <Icon size={16} weight="bold" />}</button>
                 </div>)
             })}
         </div>
