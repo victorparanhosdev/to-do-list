@@ -1,80 +1,70 @@
 .listTask {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    max-height: 31.5rem;
-    gap: 1.2rem;
-    margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 31.5rem;
+  gap: 1.2rem;
+  margin-bottom: 4rem;
 }
-
 
 .task {
-    background: var(--gray-500);
-    border: 1px solid var(--gray-400);
-    padding: 1.6rem;
-    border-radius: 0.8rem;
-    display: flex;
-    gap: 1.2rem;
-    transition: background 0.2s;
+  background: var(--gray-500);
+  border: 1px solid var(--gray-400);
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  display: flex;
+  gap: 1.2rem;
 }
-
-.task:hover:not(.isActiveFalse) {
-    background: var(--gray-400);
-}
-
 
 .task button {
-    color: var(--gray-300);
-    border: none;
-    display: flex;
-    place-self: center;
-    background-color: transparent;
-    cursor: pointer;
-    transition: color 0.2s;
+  color: var(--gray-300);
+  border: none;
+  display: flex;
+  place-self: center;
+  background-color: transparent;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  transition: all 0.2s;
 }
 
 .task button:hover {
-    color: var(--danger);
+  color: var(--danger);
+  background-color: var(--gray-400);
 }
 
 .task p {
-    flex: 1;
-    font-size: 1.4rem;
-    line-height: 1.6;
-    color: var(--gray-100);
-    word-break: break-all;
+  flex: 1;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--gray-100);
+  word-break: break-all;
 }
 
-
 .checkboxcontainer {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
 }
 
 .checkboxcontainer input {
-    appearance: none;
-    visibility: hidden;
+  appearance: none;
+  visibility: hidden;
 }
 
 .checkboxcontainer svg {
-    color: var(--blue)
+  color: var(--blue);
 }
 
 .task.isActiveFalse .checkboxcontainer svg {
-    color: var(--purple-dark);
-
-
+  color: var(--purple-dark);
 }
 
-
-
-
 .isActiveFalse p {
-    color: var(--gray-300);
-    text-decoration: line-through;
-
+  color: var(--gray-300);
+  text-decoration: line-through;
 }
 
 .isActiveFalse {
-    border-color: transparent;
+  border-color: transparent;
 }
