@@ -2,7 +2,7 @@ import style from './home.module.css'
 import LogoRocket from '../assets/rocket.svg'
 import { Task } from './Task'
 import { PlusCircle, Trash } from "@phosphor-icons/react";
-import { ChangeEvent, FormEvent, InvalidEvent, useEffect, useState } from 'react';
+import { FormEvent, InvalidEvent, useEffect, useState } from 'react';
 import { BoxEmpty } from './BoxEmpty'
 import { nanoid } from 'nanoid';
 
@@ -37,7 +37,7 @@ export function Home() {
 
 
 
-    function handleCheckBox(ItemID: string | number) {
+    function handleCheckBox(ItemID: string) {
 
         setArrayTask((prevState) => {
             return prevState.map((itemTask) => {
@@ -57,7 +57,7 @@ export function Home() {
         event.target.setCustomValidity("Preencha este campo")
     }
 
-    function deleteItem(itemID: string | number) {
+    function deleteItem(itemID: string) {
         const isOk = confirm("Tem certeza que deseja excluir?")
 
         if (isOk) {
