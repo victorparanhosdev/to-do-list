@@ -2,16 +2,25 @@ import style from './home.module.css'
 import LogoRocket from '../assets/rocket.svg'
 import { Task } from './Task'
 import { PlusCircle, Trash } from "@phosphor-icons/react";
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useEffect, useState } from 'react';
 import { BoxEmpty } from './BoxEmpty'
 import { nanoid } from 'nanoid';
+
+export interface PropsTask {
+    id: string,
+    content: string,
+    isActive: boolean
+}
+
+
 export function Home() {
 
     const [newTask, setTask] = useState('')
-    const [arrayTask, setArrayTask] = useState([])
+    const [arrayTask, setArrayTask] = useState<PropsTask[]>([])
 
-    function handleTask() {
+    function handleTask(event: FormEvent) {
         event.preventDefault()
+
 
         const randomID = nanoid()
 
@@ -28,7 +37,7 @@ export function Home() {
 
 
 
-    function handleCheckBox(ItemID) {
+    function handleCheckBox(ItemID: string | number) {
 
         setArrayTask((prevState) => {
             return prevState.map((itemTask) => {
@@ -44,12 +53,11 @@ export function Home() {
         });
 
     }
-    function handleNewTaskValidad() {
+    function handleNewTaskValidad(event: InvalidEvent<HTMLInputElement>) {
         event.target.setCustomValidity("Preencha este campo")
     }
 
-    function deleteItem(itemID) {
-        event.preventDefault()
+    function deleteItem(itemID: string | number) {
         const isOk = confirm("Tem certeza que deseja excluir?")
 
         if (isOk) {
@@ -64,10 +72,16 @@ export function Home() {
     const tasksWithConglutations = arrayTask.filter(task => task.isActive === true);
 
     useEffect(() => {
-        const localStoreTask = JSON.parse(localStorage.getItem("@listTask:"))
-        if (localStoreTask && localStoreTask.length > 0) {
-            setArrayTask(localStoreTask)
+        const localStoreTask = localStorage.getItem("@listTask:");
 
+        let parsedTasks: PropsTask[] | null = null;
+        
+        if (localStoreTask) {
+          try {
+            parsedTasks = JSON.parse(localStoreTask);
+          } catch (error) {
+            console.error("Erro ao fazer o parse do JSON:", error);
+          }
         }
 
     }, [])
@@ -88,7 +102,7 @@ export function Home() {
 
             <main className={style.content}>
                 <form onSubmit={handleTask} className={style.inputnewtask}>
-                    <input onInvalid={handleNewTaskValidad} required onChange={(event) => {
+                    <input name='input-infotask' onInvalid={handleNewTaskValidad} required onChange={(event) => {
                         event.target.setCustomValidity('')
                         setTask(event.target.value)
                     }} value={newTask} placeholder="Adicione uma nova tarefa" type="text" />
