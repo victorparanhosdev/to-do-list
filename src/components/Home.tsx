@@ -74,11 +74,13 @@ export function Home() {
     useEffect(() => {
         const localStoreTask = localStorage.getItem("@listTask:");
 
-        let parsedTasks: PropsTask[] | null = null;
+        let parsedTasks: PropsTask[];
         
         if (localStoreTask) {
           try {
             parsedTasks = JSON.parse(localStoreTask);
+            setArrayTask(parsedTasks)
+
           } catch (error) {
             console.error("Erro ao fazer o parse do JSON:", error);
           }
