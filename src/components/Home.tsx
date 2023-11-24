@@ -72,18 +72,13 @@ export function Home() {
     const tasksWithConglutations = arrayTask.filter(task => task.isActive === true);
 
     useEffect(() => {
-        const localStoreTask = localStorage.getItem("@listTask:");
 
-        let parsedTasks: PropsTask[];
-        
-        if (localStoreTask) {
-          try {
-            parsedTasks = JSON.parse(localStoreTask);
-            setArrayTask(parsedTasks)
+        const localStoreTaskJSON = localStorage.getItem("@listTask:");
+        const localStoreTask: PropsTask[] = localStoreTaskJSON ? JSON.parse(localStoreTaskJSON) : [];
+  
 
-          } catch (error) {
-            console.error("Erro ao fazer o parse do JSON:", error);
-          }
+        if (localStoreTask.length > 0) {
+            setArrayTask(localStoreTask)
         }
 
     }, [])
